@@ -30,9 +30,34 @@ res.json(users[userIndex]) ;
 
 });
 
+
+//You need to add Get by id , delete by id
+
+app.get('/user/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const user = users.find(user => user.Id === id);
+    if (user) {
+        res.json(user);
+    } else {
+        res.status(404).send("User not found");
+    }
+});
+
+
+
+app.delete('/user/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const index = users.findIndex(user => user.Id === id);
+    if (index !== -1) {
+        users.splice(index, 1);
+        res.send("User deleted successfully");
+    } else {
+        res.status(404).send("User not found");
+    }
+});
+
+
 app.listen(3000, ()=>{
 console.log("App listening")
 })
 
-
-//You need to add Get by id , delete aois

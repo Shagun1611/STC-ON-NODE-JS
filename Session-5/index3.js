@@ -47,6 +47,35 @@ app.put('/user/:id', (req, res)=>{
         WriteJsonToFile(users);
         res.send("user updated");
         })
+
+        // Update user by ID using POST method
+app.post('/user/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const updateUser = req.body;
+    let users = readJsonFromFile();
+    const userIndex = users.findIndex(user => user.Id === id);
+    if (userIndex !== -1) {
+        users[userIndex] = { ...users[userIndex], ...updateUser };
+        WriteJsonToFile(users);
+        res.send("User updated successfully");
+    } else {
+        res.status(404).send("User not found");
+    }
+});
+
+
+        app.delete('/user/:id', (req, res) => {
+            const id = parseInt(req.params.id);
+            let users = readJsonFromFile();
+            const index = users.findIndex(user => user.Id === id);
+            if (index !== -1) {
+                users.splice(index, 1);
+                WriteJsonToFile(users);
+                res.send("User deleted successfully");
+            } else {
+                res.status(404).send("User not found");
+            }
+        });
         
 
 app.listen(3000 ,() => console.log("server is running on port 3000"))
