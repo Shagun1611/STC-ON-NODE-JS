@@ -1,4 +1,4 @@
-
+//  Reading a file
 // const fs = require('fs'); 
 
 // const data = fs.readFile("hello.txt", 'utf-8', function(err, result){
